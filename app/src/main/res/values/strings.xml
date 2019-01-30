@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TableLyout_TableRow_SQLite</string>
+    <string name="id_produto">ID Produto</string>
+    <string name="nao_atribuido">Não Atribuído</string>
+    <string name="descricao">Descrição</string>
+    <string name="quantidade">Quantidade</string>
+</resources>
