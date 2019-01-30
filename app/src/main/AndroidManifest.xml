@@ -9,6 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <provider
+            android:name="com.s.d.a.a.sqlite_database.provider.AadsContentProvider"
+            android:authorities="com.s.d.a.a.sqlite_database.provider.AadsContentProvider"
+            android:enabled="true"
+            android:exported="true"></provider>
+
         <activity android:name=".SQLiteMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
