@@ -1,6 +1,6 @@
 package com.s.d.a.a.tablelyout_tablerow_sqlite;
 
-//import com.ebookfrenzy.database.provider.MyContentProvider;
+import com.s.d.a.a.sqlite_database.provider.AadsContentProvider;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -48,37 +48,40 @@ public class DBHandler  extends SQLiteOpenHelper{
         valor.put(NOME_PRODUTO, produto.getNomeProduto());
         valor.put(QTDE, produto.getQuantidade());
 
+        /**Nesse trecho de código a interação com o bando de dados ocorre através do Handler
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.insert(TABELA_PRODUTO, null, valor);
         db.close();
+         */
 
-        //contentResolver.insert(MyContentProvider.CONTENT_URI, values);
+        //Aqui a interação com o banco de dados occorre através do content provider
+        contentResolver.insert(AadsContentProvider.CONTENT_URI, valor);
 
     }
 
     public Produto localizarProduto(String nomeProduto) {
-        /**String[] projection = {COLUMN_ID,
-         COLUMN_PRODUCTNAME, COLUMN_QUANTITY };
+        //Aqui a interação com o banco de dados occorre através do content provider
+         String[] projecao = {ID_PRODUTO, NOME_PRODUTO, QTDE };
 
-         String selection = "productname = \"" + productname + "\"";
+         String selecao = "nomeProduto = \"" + nomeProduto + "\"";
 
-         Cursor cursor = myCR.query(MyContentProvider.CONTENT_URI,
-         projection, selection, null,
-         null);
+         Cursor cursor = contentResolver.query(AadsContentProvider.CONTENT_URI,
+         projecao, selecao, null, null);
 
-         Product product = new Product();
+         Produto produto = new Produto();
 
          if (cursor.moveToFirst()) {
-         cursor.moveToFirst();
-         product.setID(Integer.parseInt(cursor.getString(0)));
-         product.setProductName(cursor.getString(1));
-         product.setQuantity(Integer.parseInt(cursor.getString(2)));
-         cursor.close();
+             cursor.moveToFirst();
+             produto.setIDProduto(Integer.parseInt(cursor.getString(0)));
+             produto.setNomeProduto(cursor.getString(1));
+             produto.setQuantidade(Integer.parseInt(cursor.getString(2)));
+             cursor.close();
          } else {
-         product = null;
-         }*/
+             produto = null;
+         }
 
+        /**Nesse trecho de código a interação com o bando de dados ocorre através do Handler
         String consulta = "SELECT * FROM " + TABELA_PRODUTO + " WHERE " + NOME_PRODUTO
                 + " = \"" + nomeProduto + "\"";
 
@@ -99,25 +102,27 @@ public class DBHandler  extends SQLiteOpenHelper{
             produto = null;
         }
 
-        db.close();
+        db.close();*/
 
         return produto;
 
     }
 
     public boolean deletarProduto(String nomeProduto) {
-        /**boolean result = false;
+        //Aqui a interação com o banco de dados occorre através do content provider
+        boolean resultado = false;
 
-        String selection = "productname = \"" + productname + "\"";
+        String selecao = "nomeProduto = \"" + nomeProduto + "\"";
 
-        int rowsDeleted = myCR.delete(MyContentProvider.CONTENT_URI,
-                selection, null);
+        int registrosDeletados = contentResolver.delete(AadsContentProvider.CONTENT_URI,
+                selecao, null);
 
-        if (rowsDeleted > 0)
-            result = true;
+        if (registrosDeletados > 0)
+            resultado = true;
 
-        return result;*/
+        //return result;
 
+        /**Nesse trecho de código a interação com o bando de dados ocorre através do Handler
         boolean resultado = false;
 
         String consulta = "SELECT * FROM " + TABELA_PRODUTO + " WHERE " + NOME_PRODUTO
@@ -137,7 +142,7 @@ public class DBHandler  extends SQLiteOpenHelper{
             return true;
         }
 
-        db.close();
+        db.close();*/
 
         return resultado;
 
